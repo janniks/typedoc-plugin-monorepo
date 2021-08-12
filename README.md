@@ -50,8 +50,9 @@ typedoc
 
 ### Using
 
-This plugin adds a new input option
+This plugin adds some new options
 
+#### --external-modulemap
 ```
 --external-modulemap  ".*packages\/(@namespace\/[^\/]+)\/.*"
 ```
@@ -71,3 +72,9 @@ It is probably easier to create a typedoc options file (typedoc.json) and add it
   "excludeExternals": false
 }
 ```
+
+#### --inline-references
+
+Replace references with actual target declarations in output project symbols. This is required
+when re-exports with same name are presented in project files because this will lead to collisions in output
+symbols map and references links would target to nowhere.
