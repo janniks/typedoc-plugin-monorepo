@@ -8,13 +8,14 @@
     "experimentalDecorators": true,
     "lib": ["es2016"],
     "esModuleInterop": true,
+    "skipLibCheck": true,
     "strict": true
   },
   "files": [
     "index.ts",
     "external-module-map-plugin.ts",
     "find-readme.ts",
-    "toc-modules-plugin.ts"
+    "inline-references-plugin.ts"
   ],
   "exclude": ["node_modules"]
 }

@@ -1,13 +1,9 @@
 import * as ts from "typescript";
 
-import {
-  Component,
-  ConverterComponent,
-} from "typedoc/dist/lib/converter/components";
-import { Converter } from "typedoc/dist/lib/converter/converter";
-import { Context } from "typedoc/dist/lib/converter/context";
-import { Comment } from "typedoc/dist/lib/models/comments";
-import { Options } from "typedoc/dist/lib/utils/options";
+import {Application, Converter, ParameterType} from "typedoc";
+import { Context } from "typedoc";
+import { Comment } from "typedoc";
+import { Options } from "typedoc";
 import { DeclarationReflection, ReflectionKind } from "typedoc";
 import { findReadme } from "./find-readme";
 
@@ -26,20 +22,26 @@ interface ModuleRename {
  *
  *
  */
-@Component({ name: "external-module-map" })
-export class ExternalModuleMapPlugin extends ConverterComponent {
+export class ExternalModuleMapPlugin {
   /** List of module reflections which are models to rename */
   private moduleRenames: ModuleRename[] = [];
   private mapRegEx?: RegExp;
-  private options!: Options;
+  private options: Options;
   private modules: Set<string> = new Set();
 
-  initialize() {
-    this.options = this.application.options;
-    this.listenTo(this.owner, {
-      [Converter.EVENT_BEGIN]: this.onBegin,
-      [Converter.EVENT_CREATE_DECLARATION]: this.onDeclarationBegin,
-      [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve,
+  constructor(app: Application) {
+    this.options = app.options;
+
+    app.options.addDeclaration({
+      name: "external-modulemap",
+      type: ParameterType.String,
+      help: "Regular expression to capture the module names.",
+    });
+
+    app.converter.on({
+      [Converter.EVENT_BEGIN]: this.onBegin.bind(this),
+      [Converter.EVENT_CREATE_DECLARATION]: this.onDeclarationBegin.bind(this),
+      [Converter.EVENT_RESOLVE_BEGIN]: this.onBeginResolve.bind(this),
     });
   }
 
