@@ -1,5 +1,5 @@
 {
-  "name": "@strictsoftware/typedoc-plugin-monorepo",
+  "name": "@janniks/typedoc-plugin-monorepo",
   "version": "0.4.2",
   "description": "Optimize Typedoc documentation output for libraries that are organized in a monorepo.",
   "keywords": [
@@ -8,10 +8,10 @@
   ],
   "repository": {
     "type": "git",
-    "url": "https://github.com/unstubbable/typedoc-plugin-monorepo"
+    "url": "https://github.com/janniks/typedoc-plugin-monorepo"
   },
   "license": "MIT",
-  "author": "Hendrik Liebau <mail@hendrik-liebau.de>",
+  "author": "janniks",
   "files": [
     "dist"
   ],
